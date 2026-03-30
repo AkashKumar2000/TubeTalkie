@@ -1,0 +1,12 @@
+venv/
+faiss_index/
+transcripts_file/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.vscode/
+.idea/
+CLAUDE.md
+*.md
