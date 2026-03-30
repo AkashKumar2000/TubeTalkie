@@ -62,7 +62,7 @@ TubeTalkie/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/TubeTalkie.git
+git clone https://github.com/AkashKumar2000/TubeTalkie.git
 cd TubeTalkie
 ```
 
