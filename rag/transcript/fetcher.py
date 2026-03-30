@@ -8,7 +8,8 @@ import os
 def fetch_transcript(url):
     video_id= get_video_id(url)
 
-    ytt_api = YouTubeTranscriptApi()
+    cookies_path = os.path.join(os.path.dirname(__file__), "..", "..", "cookies.txt")
+    ytt_api = YouTubeTranscriptApi(cookies=cookies_path if os.path.exists(cookies_path) else None)
     transcript= ytt_api.fetch(video_id , languages=['en', 'hi'])
     full_text = " ".join([snippet.text for snippet in transcript])
 
