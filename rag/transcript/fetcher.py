@@ -1,4 +1,5 @@
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import WebshareProxyConfig
 from utils.url_parser import get_video_id
 import os
 
@@ -8,11 +9,19 @@ import os
 def fetch_transcript(url):
     video_id= get_video_id(url)
 
-    cookies_path = os.path.join(os.path.dirname(__file__), "..", "..", "cookies.txt")
-    if os.path.exists(cookies_path):
-        ytt_api = YouTubeTranscriptApi(cookies=cookies_path)
+    proxy_username = os.getenv("WEBSHARE_USERNAME")
+    proxy_password = os.getenv("WEBSHARE_PASSWORD")
+
+    if proxy_username and proxy_password:
+        ytt_api = YouTubeTranscriptApi(
+            proxy_config=WebshareProxyConfig(
+                proxy_username=proxy_username,
+                proxy_password=proxy_password,
+            )
+        )
     else:
         ytt_api = YouTubeTranscriptApi()
+
     transcript= ytt_api.fetch(video_id , languages=['en', 'hi'])
     full_text = " ".join([snippet.text for snippet in transcript])
 
