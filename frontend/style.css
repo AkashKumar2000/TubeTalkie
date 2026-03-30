@@ -1,0 +1,253 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #f1f1f1;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+header {
+  text-align: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #ff0000;
+  margin-bottom: 6px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* Card */
+.card {
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* URL row */
+.url-row {
+  display: flex;
+  gap: 10px;
+}
+
+#url-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #0f0f0f;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+
+#url-input:focus {
+  outline: none;
+  border-color: #ff0000;
+}
+
+/* Buttons */
+#load-btn,
+#send-btn {
+  background: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+#load-btn:hover,
+#send-btn:hover {
+  background: #cc0000;
+}
+
+#load-btn:disabled,
+#send-btn:disabled {
+  background: #555;
+  cursor: not-allowed;
+}
+
+/* Status */
+.status {
+  font-size: 13px;
+  color: #aaa;
+  min-height: 18px;
+}
+
+.status.error { color: #ff4444; }
+.status.success { color: #44ff88; }
+
+.hidden { display: none; }
+
+/* Video info bar */
+#video-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.video-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff0000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+#clear-btn {
+  background: none;
+  border: 1px solid #444;
+  color: #aaa;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#clear-btn:hover {
+  border-color: #ff0000;
+  color: #fff;
+}
+
+/* Chat box */
+#chat-box {
+  height: 420px;
+  overflow-y: auto;
+  background: #0f0f0f;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  gap: 4px;
+}
+
+.message-wrapper.user {
+  align-self: flex-end;
+}
+
+.message-wrapper.bot {
+  align-self: flex-start;
+}
+
+.message {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.message.user {
+  background: #ff0000;
+}
+
+.message.bot {
+  background: #2a2a2a;
+}
+
+/* Copy button */
+.copy-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.copy-btn:hover { color: #aaa; }
+.copy-btn.copied { color: #44ff88; }
+
+/* Typing indicator */
+.typing-indicator {
+  background: #2a2a2a;
+  align-self: flex-start;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.typing-indicator span {
+  width: 7px;
+  height: 7px;
+  background: #aaa;
+  border-radius: 50%;
+  animation: bounce 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* Input row */
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+#question-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #0f0f0f;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+
+#question-input:focus {
+  outline: none;
+  border-color: #ff0000;
+}
+
+/* Scrollbar */
+#chat-box::-webkit-scrollbar { width: 6px; }
+#chat-box::-webkit-scrollbar-track { background: transparent; }
+#chat-box::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }

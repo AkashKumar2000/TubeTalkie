@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+
+# Cached data
+faiss_index/
+transcripts_file/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pycache
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+CLAUDE.md

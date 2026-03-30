@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "TUBETALKIE",
+  "version": "1.0",
+  "description": "Chat with any YouTube video using AI",
+  "permissions": ["activeTab", "sidePanel"],
+  "action": {
+    "default_title": "TUBETALKIE"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "https://www.youtube.com/*"
+  ]
+}

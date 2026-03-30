@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TUBETALKIE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <h1>TUBETALKIE</h1>
+      <button id="toggle-btn" title="Expand / Collapse">&#x26F6;</button>
+    </div>
+
+    <div id="main-content">
+      <div id="load-section">
+        <p id="video-url" class="url-text">Detecting video...</p>
+        <button id="load-btn">Load Video</button>
+        <p id="load-status" class="status"></p>
+      </div>
+
+      <div id="chat-section" class="hidden">
+        <div id="video-info">
+          <span id="video-title" class="video-title"></span>
+          <button id="clear-btn" title="Clear chat">&#x1F5D1; Clear</button>
+        </div>
+        <div id="chat-box"></div>
+        <div class="input-row">
+          <input type="text" id="question-input" placeholder="Ask a question..." />
+          <button id="send-btn">Send</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
