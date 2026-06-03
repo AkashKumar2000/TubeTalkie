@@ -1,0 +1,70 @@
+name: Build and Deploy TubeTalkie
+
+# TRIGGER: runs every time you push to main branch
+on:
+  push:
+    branches: [main]
+
+env:
+  IMAGE_NAME: ghcr.io/akashkumar2000/tubetalkie
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest   # GitHub's free runner (fresh Ubuntu VM)
+
+    # This permission lets the runner push images to GHCR using GITHUB_TOKEN
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      # Step 1: Pull your repo code onto the runner
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Log in to GHCR (uses built-in GITHUB_TOKEN, no PAT needed)
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 3: Build the Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:${{ github.sha }} .
+
+      # Step 4: Push both tags to GHCR
+      - name: Push to GHCR
+        run: |
+          docker push $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:${{ github.sha }}
+
+      # Step 5: SSH into EC2 and deploy the new image
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Pull the latest image
+            docker pull ${{ env.IMAGE_NAME }}:latest
+
+            # Stop and remove old container (if running)
+            docker stop tubetalkie || true
+            docker rm tubetalkie || true
+
+            # Start new container
+            docker run -d \
+              --name tubetalkie \
+              -p 8000:8000 \
+              -e GROQ_API_KEY=${{ secrets.GROQ_API_KEY }} \
+              -v ~/faiss_index:/app/faiss_index \
+              -v ~/transcripts_file:/app/transcripts_file \
+              --restart unless-stopped \
+              ${{ env.IMAGE_NAME }}:latest
+
+            # Clean up old images to save disk space
+            docker image prune -f
