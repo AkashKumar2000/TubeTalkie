@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tubetalkie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tubetalkie
+  template:
+    metadata:
+      labels:
+        app: tubetalkie
+    spec:
+      containers:
+        - name: tubetalkie
+          image: ghcr.io/akashkumar2000/tubetalkie:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: tubetalkie-secrets
+          volumeMounts:
+            - name: faiss-storage
+              mountPath: /app/faiss_index
+            - name: transcript-storage
+              mountPath: /app/transcripts_file
+      volumes:
+        - name: faiss-storage
+          hostPath:
+            path: /data/faiss_index
+            type: DirectoryOrCreate
+        - name: transcript-storage
+          hostPath:
+            path: /data/transcripts_file
+            type: DirectoryOrCreate
+
+
+            
