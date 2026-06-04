@@ -62,7 +62,7 @@ def chat(req:ChatRequest):
 
 @app.get("/health")
 def health():
-    return {"status": "Ok"}
+    return {"status": "Ok", "version": "testing Phase"}
 
 # uvicorn backend.main:app --reload --port 8000
 # Serve frontend static files
